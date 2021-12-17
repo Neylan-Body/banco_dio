@@ -1,10 +1,14 @@
 package banco.model;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static banco.BancoUtils.dataEHoraAtual;
+
+@Slf4j
 @Getter
 public class Banco {
     private String nome;
@@ -20,7 +24,7 @@ public class Banco {
     }
 
     public void imprimirClientes(){
-        System.out.println("Clientes do Banco: "+ this.nome);
-        clientes.forEach(cliente -> System.out.println(cliente.getNome()));
+        log.info(dataEHoraAtual() + " - Clientes do Banco: "+ this.nome);
+        clientes.forEach(cliente -> log.info(cliente.getNome()));
     }
 }

@@ -14,7 +14,7 @@ public class Main {
         Cliente neylan = new Cliente("Neylan Oliveira");
         Cliente venilton = new Cliente("Venilton Falvo");
 
-        Banco banco = new Banco("Bradesco");
+        Banco banco = new Banco("Qualquer Banco");
 
         Conta cc = new ContaCorrente(banco, neylan);
         Conta cp = new ContaPoupanca(banco, venilton);

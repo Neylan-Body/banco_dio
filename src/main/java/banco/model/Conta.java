@@ -3,18 +3,22 @@ package banco.model;
 import banco.exception.SaldoInsuficienteException;
 import banco.exception.ValorIncorretoException;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static banco.BancoUtils.dataEHoraAtual;
+
+@Slf4j
 @Getter
 public abstract class Conta {
 
     private static int seq = 1;
 
     private final int agencia;
-    private final int numero;
+    private final int numeroConta;
     private BigDecimal saldo;
     private List<String> operacoes;
     private final Cliente cliente;
@@ -22,7 +26,7 @@ public abstract class Conta {
 
     protected Conta(Banco banco, Cliente cliente) {
         this.agencia = 1;
-        this.numero = seq++;
+        this.numeroConta = seq++;
         this.saldo = BigDecimal.ZERO;
         this.operacoes = new ArrayList<>();
         this.cliente = cliente;
@@ -34,21 +38,22 @@ public abstract class Conta {
         verificaValorNegativo(valor);
         verificaSaldoInsuficiente(valor);
         saldo = aplicaTaxaDeTransacao(saldo);
-        this.operacoes.add("Foi sacado R$ " + valor);
+        this.operacoes.add(dataEHoraAtual() + " - Foi sacado R$ " + valor);
         saldo = saldo.subtract(valor);
         return valor;
     }
 
     public void depositar(BigDecimal valor) {
         verificaValorNegativo(valor);
-        this.operacoes.add("Foi depositado R$ " + valor);
+
+        this.operacoes.add(dataEHoraAtual() + " - Foi depositado R$ " + valor);
         saldo = saldo.add(valor);
     }
 
     protected void receberTransferencia(BigDecimal valor, Conta origem) {
         verificaValorNegativo(valor);
-        this.operacoes.add("Foi recebido de transferência R$ " + valor + ", " +
-                "da Conta: " + origem.getNumero() + ", Agencia: " + origem.getAgencia());
+        this.operacoes.add(dataEHoraAtual() + " - Foi recebido de transferência R$ " + valor + ", " +
+                "da " + stringComContaEAgencia(origem.getNumeroConta(), origem.getAgencia()));
         saldo = saldo.add(valor);
     }
 
@@ -56,17 +61,21 @@ public abstract class Conta {
         verificaValorNegativo(valor);
         verificaSaldoInsuficiente(valor);
         saldo = aplicaTaxaDeTransacao(saldo);
-        this.operacoes.add("Foi transferido R$ " + valor + ", " +
-                "para Conta: " + destino.getNumero() + ", Agencia: " + destino.getAgencia());
+        this.operacoes.add(dataEHoraAtual() + " - Foi transferido R$ " + valor + ", " +
+                "para " + stringComContaEAgencia(destino.getNumeroConta(), destino.getAgencia()));
         saldo = saldo.subtract(valor);
         destino.receberTransferencia(valor, this);
     }
 
     public void imprimirExtrato() {
-        System.out.println("Titular: "+ this.cliente.getNome());
-        System.out.println("Conta: " + this.numero + ", Agencia: " + this.agencia);
-        this.operacoes.forEach(System.out::println);
-        System.out.println("Saldo: R$ " + this.saldo+"\n");
+        log.info("Titular: " + this.cliente.getNome());
+        log.info(stringComContaEAgencia(this.getNumeroConta(), this.getAgencia()));
+        this.operacoes.forEach(log::info);
+        log.info(dataEHoraAtual() + " - Saldo: R$ " + this.saldo + "\n");
+    }
+
+    private String stringComContaEAgencia(int conta, int agencia) {
+        return "Conta: " + conta + ", Agencia: " + agencia;
     }
 
     private void verificaValorNegativo(BigDecimal valor) {

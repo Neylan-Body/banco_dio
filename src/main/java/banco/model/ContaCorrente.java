@@ -1,7 +1,10 @@
 package banco.model;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 
+@Slf4j
 public class ContaCorrente extends Conta{
     public ContaCorrente(Banco banco, Cliente cliente){
         super(banco, cliente);
@@ -9,7 +12,7 @@ public class ContaCorrente extends Conta{
 
     @Override
     public void imprimirExtrato() {
-        System.out.println("------Extrato conta corrente--------");
+        log.info("------Extrato conta corrente--------");
         super.imprimirExtrato();
     }
 

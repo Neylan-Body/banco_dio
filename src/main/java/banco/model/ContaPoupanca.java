@@ -1,7 +1,10 @@
 package banco.model;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 
+@Slf4j
 public class ContaPoupanca extends Conta{
 
     public ContaPoupanca(Banco banco, Cliente cliente){
@@ -10,7 +13,7 @@ public class ContaPoupanca extends Conta{
 
     @Override
     public void imprimirExtrato() {
-        System.out.println("------Extrato conta poupança--------");
+        log.info("------Extrato conta poupança--------");
         super.imprimirExtrato();
     }
 

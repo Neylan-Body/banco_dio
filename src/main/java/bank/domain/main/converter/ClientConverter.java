@@ -1,5 +1,6 @@
 package bank.domain.main.converter;
 
+import bank.controller.response.ClientForBankResponse;
 import bank.controller.response.ClientResponse;
 import bank.domain.model.Client;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,16 @@ public class ClientConverter {
 
     public ClientResponse toClientResponse(Client client) {
         return this.mapper.map(client, ClientResponse.class);
+    }
+
+    public List<ClientForBankResponse> toListClientForBankResponse(List<Client> clients) {
+        List<ClientForBankResponse> clientResponses = new ArrayList<>();
+        clients.forEach(client -> clientResponses.add(toClientForBankResponse(client)));
+        return clientResponses;
+    }
+
+    public ClientForBankResponse toClientForBankResponse(Client client) {
+        return this.mapper.map(client, ClientForBankResponse.class);
     }
 
 }

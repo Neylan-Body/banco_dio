@@ -7,8 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 @SuperBuilder
 @Getter
 @Setter
@@ -19,5 +17,4 @@ public class ClientForBankResponse {
 
     private String name;
 
-    private List<BankResponse> banks;
 }

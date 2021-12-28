@@ -2,11 +2,10 @@ package bank.controller;
 
 import bank.controller.request.CreateBankRequest;
 import bank.controller.response.BankResponse;
-import bank.controller.response.ClientResponse;
+import bank.controller.response.ClientForBankResponse;
 import bank.domain.main.converter.BankConverter;
 import bank.domain.main.converter.ClientConverter;
 import bank.domain.model.Bank;
-import bank.domain.model.Client;
 import bank.repository.BankRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +36,8 @@ public class BankController {
     }
 
     @GetMapping("/{name}/clients")
-    public List<ClientResponse> getClients(@PathVariable("name") String name){
-        return clientConverter.toListClientResponse(bankRepository.findClientsByName(name));
+    public List<ClientForBankResponse> getClients(@PathVariable("name") String name){
+        return clientConverter.toListClientForBankResponse(bankRepository.findClientsByName(name));
     }
 
     @GetMapping("/{name}")

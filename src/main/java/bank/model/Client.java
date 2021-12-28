@@ -1,12 +1,12 @@
-package banco.model;
+package bank.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Cliente {
+public class Client {
 
-    private String nome;
+    private String name;
 
 }

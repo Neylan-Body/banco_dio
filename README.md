@@ -8,7 +8,7 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
 
-> Esse projeto é a implementação de um banco com cliente e contas corrente e poupança que permite fazer depositos, saques, transferência e exibe o extrato de transação de cada conta.
+> Esse projeto é a implementação de um bank com client e contas corrente e poupança que permite fazer depositos, saques, transferência e exibe o extrato de transação de cada conta.
 
 ### Ajustes e melhorias
 

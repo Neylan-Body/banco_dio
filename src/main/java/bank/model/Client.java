@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,7 +35,7 @@ public class Client implements Serializable {
             joinColumns = {@JoinColumn(name = "client_id")},
             inverseJoinColumns = {@JoinColumn(name = "bank_id")}
     )
-    private List<Bank> banks;
+    private List<Bank> banks = new ArrayList<>();
 
     public void addBank(Bank bank) {
         banks.add(bank);

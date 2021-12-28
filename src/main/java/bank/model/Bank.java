@@ -33,11 +33,10 @@ public class Bank implements Serializable {
     private String name;
 
     @ManyToMany(mappedBy = "banks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Client> clients;
+    private List<Client> clients = new ArrayList<>();
 
     public Bank(String name){
         this.name = name;
-        this.clients = new ArrayList<>();
     }
 
     public void addClient(Client client){

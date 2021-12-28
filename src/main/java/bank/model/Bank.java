@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class Bank implements Serializable {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "banks", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Client> clients;
 
     public Bank(String name){

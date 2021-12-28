@@ -6,16 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Getter
@@ -35,9 +31,6 @@ public abstract class Account implements Serializable {
 
     private BigDecimal balance;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Operation> operations;
-
     @OneToOne(cascade = CascadeType.ALL)
     private final Client client;
 
@@ -49,7 +42,7 @@ public abstract class Account implements Serializable {
     protected Account(Bank bank, Client client, AccountTypeEnum accountTypeEnum) {
         this.agency = 1;
         this.balance = BigDecimal.ZERO;
-        this.operations = new ArrayList<>();
+//        this.operations = new ArrayList<>();
         this.client = client;
         bank.addClient(client);
         this.bank = bank;

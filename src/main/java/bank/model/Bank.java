@@ -2,9 +2,15 @@ package bank.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +21,16 @@ import static bank.BankUtils.currentDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Bank {
+@SuperBuilder
+public class Bank implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String name;
+
+    @ManyToMany
     private List<Client> clients;
 
     public Bank(String name){
@@ -28,7 +38,7 @@ public class Bank {
         this.clients = new ArrayList<>();
     }
 
-    public void setClient(Client client){
+    public void addClient(Client client){
         this.clients.add(client);
     }
 

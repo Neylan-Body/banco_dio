@@ -1,20 +1,23 @@
 package bank.model;
 
+import bank.model.enumerator.AccountTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Slf4j
+@Entity
 public class SavingsAccount extends Account {
 
     public SavingsAccount(Bank bank, Client client){
-        super(bank, client);
+        super(bank, client, AccountTypeEnum.SAVINGS);
     }
 
-    @Override
+//    @Override
     public void printExtract() {
         log.info("------Extrato conta poupança--------");
-        super.printExtract();
+//        super.printExtract();
     }
 
     @Override

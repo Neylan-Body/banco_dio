@@ -8,26 +8,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
-@Getter
+@Table(name = "operation")
 @Entity
+@Getter
 @SuperBuilder
 @NoArgsConstructor
-public class Client implements Serializable {
+public class Operation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
-    @ManyToMany
-    private List<Bank> banks;
-
-    public void addBank(Bank bank) {
-        banks.add(bank);
-    }
+    private String operation;
 }

@@ -1,4 +1,4 @@
-package bank.model;
+package bank.domain.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

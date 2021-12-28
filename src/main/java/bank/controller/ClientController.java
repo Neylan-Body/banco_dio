@@ -2,7 +2,9 @@ package bank.controller;
 
 import bank.controller.request.CreateBankRequest;
 import bank.controller.request.UpdateClientAddBankRequest;
-import bank.model.Client;
+import bank.controller.response.ClientResponse;
+import bank.domain.main.converter.ClientConverter;
+import bank.domain.model.Client;
 import bank.repository.BankRepository;
 import bank.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +25,20 @@ import java.util.List;
 @RestController
 public class ClientController {
 
+    private final ClientConverter clientConverter;
+
     private final ClientRepository clientRepository;
+
     private final BankRepository bankRepository;
 
     @GetMapping("/")
-    public List<Client> getClients(){
-        return clientRepository.findAll();
+    public List<ClientResponse> getClients(){
+        return clientConverter.toListClientResponse(clientRepository.findAll());
     }
 
     @GetMapping("/{name}")
-    public Client getClientByName(@PathVariable("name") String name){
-        return clientRepository.findByName(name);
+    public ClientResponse getClientByName(@PathVariable("name") String name){
+        return clientConverter.toClientResponse(clientRepository.findByName(name));
     }
 
     @PostMapping("/")

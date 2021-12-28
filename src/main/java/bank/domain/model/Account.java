@@ -1,6 +1,6 @@
-package bank.model;
+package bank.domain.model;
 
-import bank.model.enumerator.AccountTypeEnum;
+import bank.domain.model.enumerator.AccountTypeEnum;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

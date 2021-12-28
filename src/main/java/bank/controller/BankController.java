@@ -1,8 +1,12 @@
 package bank.controller;
 
 import bank.controller.request.CreateBankRequest;
-import bank.model.Bank;
-import bank.model.Client;
+import bank.controller.response.BankResponse;
+import bank.controller.response.ClientResponse;
+import bank.domain.main.converter.BankConverter;
+import bank.domain.main.converter.ClientConverter;
+import bank.domain.model.Bank;
+import bank.domain.model.Client;
 import bank.repository.BankRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,21 +25,25 @@ import java.util.List;
 @RestController
 public class BankController {
 
+    private final BankConverter bankConverter;
+
+    private final ClientConverter clientConverter;
+
     private final BankRepository bankRepository;
 
     @GetMapping("/")
-    public List<Bank> getBanks(){
-        return bankRepository.findAll();
+    public List<BankResponse> getBanks(){
+        return bankConverter.toListBankResponse(bankRepository.findAll());
     }
 
     @GetMapping("/{name}/clients")
-    public List<Client> getClients(@PathVariable("name") String name){
-        return bankRepository.findClientsByName(name);
+    public List<ClientResponse> getClients(@PathVariable("name") String name){
+        return clientConverter.toListClientResponse(bankRepository.findClientsByName(name));
     }
 
     @GetMapping("/{name}")
-    public Bank getBankByName(@PathVariable("name") String name){
-        return bankRepository.findByName(name);
+    public BankResponse getBankByName(@PathVariable("name") String name){
+        return bankConverter.toBankResponse(bankRepository.findByName(name));
     }
 
     @PostMapping("/")

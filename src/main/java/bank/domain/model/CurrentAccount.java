@@ -1,6 +1,5 @@
 package bank.domain.model;
 
-import bank.domain.model.enumerator.AccountTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Entity;
@@ -10,17 +9,12 @@ import java.math.BigDecimal;
 @Entity
 public class CurrentAccount extends Account {
 
-    public CurrentAccount(Bank bank, Client client){
-        super(bank, client, AccountTypeEnum.CURRENT);
-    }
-
 //    @Override
     public void printExtract() {
         log.info("------Extrato conta corrente--------");
 //        super.printExtract();
     }
 
-    @Override
     BigDecimal applyTransactionFee(BigDecimal balance) {
         return balance.subtract(new BigDecimal("0.17"));
     }

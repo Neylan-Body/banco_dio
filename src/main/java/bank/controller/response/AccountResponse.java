@@ -22,7 +22,7 @@ public class AccountResponse {
 
     private Integer agency;
 
-    private Integer account;
+    private Integer accountNumber;
 
     private String nameClient;
 

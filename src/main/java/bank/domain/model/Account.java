@@ -2,6 +2,9 @@ package bank.domain.model;
 
 import bank.domain.model.enumerator.AccountTypeEnum;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.CascadeType;
@@ -16,7 +19,9 @@ import java.math.BigDecimal;
 @Slf4j
 @Getter
 @Entity
-public abstract class Account implements Serializable {
+@NoArgsConstructor
+@SuperBuilder
+public class Account implements Serializable {
 
     private static final long serialVersionUID = -1888303910055235185L;
 
@@ -24,7 +29,7 @@ public abstract class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private final Integer agency;
+    private Integer agency;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer accountNumber;
@@ -32,22 +37,13 @@ public abstract class Account implements Serializable {
     private BigDecimal balance;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private final Client client;
+    private Client client;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private final Bank bank;
+    private Bank bank;
 
-    private final AccountTypeEnum accountTypeEnum;
-
-    protected Account(Bank bank, Client client, AccountTypeEnum accountTypeEnum) {
-        this.agency = 1;
-        this.balance = BigDecimal.ZERO;
-//        this.operations = new ArrayList<>();
-        this.client = client;
-        bank.addClient(client);
-        this.bank = bank;
-        this.accountTypeEnum = accountTypeEnum;
-    }
+    @Setter
+    private AccountTypeEnum accountTypeEnum;
 
 //    public BigDecimal withdraw(BigDecimal value) {
 //        checkNegativeValue(value);
@@ -105,6 +101,4 @@ public abstract class Account implements Serializable {
 //                    "que o valor presente na conta");
 //        }
 //    }
-
-    abstract BigDecimal applyTransactionFee(BigDecimal balance);
 }

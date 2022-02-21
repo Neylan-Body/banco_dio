@@ -32,17 +32,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4">
-      <console name="Banco" type="STANDARD" schema="main" session="Main"><![CDATA[select
-    a.account_number,
-    a.account_type_enum,
-    a.agency,
-    a.balance,
-    a.bank_id,
-    a.client_id,
-    a.dtype,
-    a.id
-from
-    account a;]]></console>
+      <console name="Banco" type="STANDARD" schema="main" session="Main"><![CDATA[select * from clients_banks;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

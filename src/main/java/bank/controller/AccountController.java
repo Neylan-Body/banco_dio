@@ -8,9 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RequestMapping("/account")
 @RequiredArgsConstructor
@@ -29,7 +32,7 @@ public class AccountController {
     }
 
     @PostMapping("/")
-    public AccountResponse createAccount(CreateAccountRequest createAccountRequest){
+    public AccountResponse createAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest){
         var account = accountConverter.toAccount(createAccountRequest);
         var accountSaved = accountRepository.save(account);
         return accountConverter.toAccountResponse(accountSaved);

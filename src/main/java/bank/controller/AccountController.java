@@ -3,7 +3,6 @@ package bank.controller;
 import bank.controller.request.CreateAccountRequest;
 import bank.controller.response.AccountResponse;
 import bank.domain.main.converter.AccountConverter;
-import bank.domain.model.Account;
 import bank.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

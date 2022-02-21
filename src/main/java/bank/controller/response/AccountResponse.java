@@ -1,5 +1,6 @@
 package bank.controller.response;
 
+import bank.domain.model.enumerator.AccountTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @SuperBuilder
 @Getter
@@ -17,7 +18,15 @@ import java.util.List;
 @ToString
 public class AccountResponse {
 
-    private String name;
+    private Integer id;
 
-    private List<BankForClientResponse> banks;
+    private Integer agency;
+
+    private Integer account;
+
+    private String nameClient;
+
+    private AccountTypeEnum accountTypeEnum;
+
+    private BigDecimal balance;
 }

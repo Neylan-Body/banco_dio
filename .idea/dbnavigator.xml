@@ -46,9 +46,7 @@ from
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" object-ref="consoles/Banco" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" />

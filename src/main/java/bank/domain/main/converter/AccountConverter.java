@@ -2,15 +2,10 @@ package bank.domain.main.converter;
 
 import bank.controller.request.CreateAccountRequest;
 import bank.controller.response.AccountResponse;
-import bank.controller.response.BankResponse;
 import bank.domain.model.Account;
-import bank.domain.model.Bank;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

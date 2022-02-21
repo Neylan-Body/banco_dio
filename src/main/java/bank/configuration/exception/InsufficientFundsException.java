@@ -1,4 +1,4 @@
-package bank.exception;
+package bank.configuration.exception;
 
 public class InsufficientFundsException extends RuntimeException {
     public InsufficientFundsException(String s) {

@@ -1,6 +1,6 @@
 package bank.controller;
 
-import bank.controller.request.CreateBankRequest;
+import bank.controller.request.CreateClientRequest;
 import bank.controller.request.UpdateClientAddBankRequest;
 import bank.controller.response.ClientResponse;
 import bank.domain.main.converter.ClientConverter;
@@ -42,8 +42,8 @@ public class ClientController {
     }
 
     @PostMapping("/")
-    public void createBank(@RequestBody CreateBankRequest createBankRequest){
-        clientRepository.save(Client.builder().name(createBankRequest.getName()).build());
+    public void createBank(@RequestBody CreateClientRequest createClientRequest){
+        clientRepository.save(Client.builder().name(createClientRequest.getName()).build());
     }
 
     @DeleteMapping("/{name}")
@@ -57,6 +57,7 @@ public class ClientController {
         var bank = bankRepository.findByName(updateClientAddBank.getNameBank());
         var client = clientRepository.findByName(name);
         client.addBank(bank);
+        bank.addClient(client);
         clientRepository.save(client);
     }
 }

@@ -1,9 +1,7 @@
 package bank.domain.main.converter;
 
 import bank.controller.response.BankResponse;
-import bank.controller.response.ClientResponse;
 import bank.domain.model.Bank;
-import bank.domain.model.Client;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

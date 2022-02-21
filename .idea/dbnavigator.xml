@@ -24,15 +24,31 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4">
+        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4">
-      <console name="Banco" type="STANDARD" schema="main" session="Main"><![CDATA[drop table account_operations]]></console>
+      <console name="Banco" type="STANDARD" schema="main" session="Main"><![CDATA[select
+    a.account_number,
+    a.account_type_enum,
+    a.agency,
+    a.balance,
+    a.bank_id,
+    a.client_id,
+    a.dtype,
+    a.id
+from
+    account a;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" object-ref="consoles/Banco" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" />
@@ -67,6 +83,9 @@
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
+  <component name="DBNavigator.Project.ParserDiagnosticsManager">
+    <diagnostics-history />
+  </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
     <recently-used-interfaces>
       <mapping database-type="SQLITE" interface-id="DEFAULT" />
@@ -74,7 +93,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" active="true">
+      <connection id="4ec9c6e0-670e-4f83-94e6-da4ef0b334b4" active="true" signed="true">
         <database>
           <name value="Banco" />
           <description value="" />

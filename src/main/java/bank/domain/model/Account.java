@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 
 @Slf4j
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @SuperBuilder

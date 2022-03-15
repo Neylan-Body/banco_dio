@@ -1,6 +1,9 @@
 package bank.controller;
 
 import bank.controller.request.CreateAccountRequest;
+import bank.controller.request.DepositCashRequest;
+import bank.controller.request.TransferCashRequest;
+import bank.controller.request.WithdrawMoneyRequest;
 import bank.controller.response.AccountResponse;
 import bank.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +36,20 @@ public class AccountController {
     public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest createAccountRequest){
         var account = accountService.createAccount(createAccountRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(account);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transferCash(@Valid @RequestBody TransferCashRequest transferCashRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.transferCash(transferCashRequest));
+    }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<String> depositCash(@Valid @RequestBody DepositCashRequest depositCashRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.depositCash(depositCashRequest));
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> withdrawMoney(@Valid @RequestBody WithdrawMoneyRequest withdrawMoneyRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.withdrawMoney(withdrawMoneyRequest));
     }
 }

@@ -18,8 +18,7 @@ public class CreateAccountRequest implements Serializable {
     @NotNull(message = "Campo agency é obrigatório")
     private Integer agency;
 
-    @NotNull(message = "Campo balance é obrigatório")
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @NotNull(message = "Campo client é obrigatório")
     private CreateClientRequest client;

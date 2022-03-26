@@ -7,13 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BankRepository extends JpaRepository<Bank, Integer> {
-    Bank findByName(String name);
+    Optional<Bank> findByName(String name);
 
     @Query("select b.clients from Bank b where b.name = ?1")
-    List<Client> findClientsByName(String name);
+    Optional<List<Client>> findClientsByName(String name);
 
     void deleteByName(String name);
+
+    boolean existsBankByName(String name);
 }

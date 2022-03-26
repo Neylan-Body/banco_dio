@@ -7,15 +7,12 @@ import bank.domain.main.converter.BankConverter;
 import bank.domain.main.converter.ClientConverter;
 import bank.domain.model.Bank;
 import bank.repository.BankRepository;
+import bank.service.BankService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,8 @@ import java.util.List;
 @RestController
 public class BankController {
 
+    private final BankService bankService;
+
     private final BankConverter bankConverter;
 
     private final ClientConverter clientConverter;
@@ -31,28 +30,30 @@ public class BankController {
     private final BankRepository bankRepository;
 
     @GetMapping("/")
-    public List<BankResponse> getBanks(){
-        return bankConverter.toListBankResponse(bankRepository.findAll());
+    public ResponseEntity<List<BankResponse>> getBanks(){
+        return ResponseEntity.status(HttpStatus.OK).body(bankService.findAllBanks());
     }
 
     @GetMapping("/{name}/clients")
-    public List<ClientForBankResponse> getClients(@PathVariable("name") String name){
-        return clientConverter.toListClientForBankResponse(bankRepository.findClientsByName(name));
+    public ResponseEntity<List<ClientForBankResponse>> getClients(@PathVariable("name") String name){
+        return ResponseEntity.status(HttpStatus.OK).body(bankService.findClientsByNameBank(name));
     }
 
     @GetMapping("/{name}")
-    public BankResponse getBankByName(@PathVariable("name") String name){
-        return bankConverter.toBankResponse(bankRepository.findByName(name));
+    public ResponseEntity<BankResponse> getBankByName(@PathVariable("name") String name){
+        return ResponseEntity.status(HttpStatus.OK).body(bankService.findBankByName(name));
     }
 
     @PostMapping("/")
-    public void createBank(@RequestBody CreateBankRequest createBankRequest){
-        bankRepository.save(Bank.builder().name(createBankRequest.getName()).build());
+    public ResponseEntity<Void> createBank(@RequestBody CreateBankRequest createBankRequest){
+        bankService.createBank(createBankRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @DeleteMapping("/{name}")
     @Transactional
-    public void deleteBankByName(@PathVariable("name") String name){
-        bankRepository.deleteByName(name);
+    public ResponseEntity<Void> deleteBankByName(@PathVariable("name") String name){
+        bankService.deleteBankByName(name);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

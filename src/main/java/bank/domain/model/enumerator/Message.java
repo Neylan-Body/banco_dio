@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 public enum Message {
 
     ACCOUNT_NOT_FOUND("Conta de numero=%s e agencia=%s não foi encontrada", HttpStatus.BAD_REQUEST),
+    BANK_WITH_NAME_NOT_FOUND("Banco de nome=%s e não foi encontrado", HttpStatus.BAD_REQUEST),
+    CLIENT_WITH_NAME_NOT_FOUND("Cliente de nome=%s e não foi encontrado", HttpStatus.BAD_REQUEST),
+    CLIENT_WITH_ID_NOT_FOUND("Cliente de id=%s e não foi encontrado", HttpStatus.BAD_REQUEST),
     INSUFFICIENT_FUNDS("Saldo insuficiente", HttpStatus.BAD_REQUEST);
 
 

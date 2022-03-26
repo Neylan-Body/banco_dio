@@ -3,20 +3,12 @@ package bank.controller;
 import bank.controller.request.CreateClientRequest;
 import bank.controller.request.UpdateClientAddBankRequest;
 import bank.controller.response.ClientResponse;
-import bank.domain.main.converter.ClientConverter;
-import bank.domain.model.Client;
-import bank.repository.BankRepository;
-import bank.repository.ClientRepository;
+import bank.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,39 +17,32 @@ import java.util.List;
 @RestController
 public class ClientController {
 
-    private final ClientConverter clientConverter;
-
-    private final ClientRepository clientRepository;
-
-    private final BankRepository bankRepository;
+    private final ClientService clientService;
 
     @GetMapping("/")
-    public List<ClientResponse> getClients(){
-        return clientConverter.toListClientResponse(clientRepository.findAll());
+    public ResponseEntity<List<ClientResponse>> getClients(){
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAllClients());
     }
 
     @GetMapping("/{name}")
-    public ClientResponse getClientByName(@PathVariable("name") String name){
-        return clientConverter.toClientResponse(clientRepository.findByName(name));
+    public ResponseEntity<List<ClientResponse>> getClientByName(@PathVariable("name") String name){
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findClientsByName(name));
     }
 
     @PostMapping("/")
-    public void createBank(@RequestBody CreateClientRequest createClientRequest){
-        clientRepository.save(Client.builder().name(createClientRequest.getName()).build());
+    public ResponseEntity<ClientResponse> createClient(@RequestBody CreateClientRequest createClientRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.createClient(createClientRequest));
     }
 
     @DeleteMapping("/{name}")
     @Transactional
-    public void deleteClientByName(@PathVariable("name") String name){
-        clientRepository.deleteByName(name);
+    public ResponseEntity<Void> deleteClientByName(@PathVariable("name") String name){
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PatchMapping("/{name}")
-    public void addBank(@PathVariable("name") String name, @RequestBody UpdateClientAddBankRequest updateClientAddBank){
-        var bank = bankRepository.findByName(updateClientAddBank.getNameBank());
-        var client = clientRepository.findByName(name);
-        client.addBank(bank);
-        bank.addClient(client);
-        clientRepository.save(client);
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> addBank(@PathVariable("clientId") Integer clientId, @RequestBody UpdateClientAddBankRequest updateClientAddBankRequest){
+        clientService.addBank(clientId, updateClientAddBankRequest);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
